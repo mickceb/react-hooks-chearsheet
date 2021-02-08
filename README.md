@@ -337,3 +337,35 @@ export default function App() {
   );
 }
 ```
+## useContext Hook
+useContext Helps Us Avoid Prop Drilling
+```
+import './styles.css'
+import React from 'react';
+
+const UserContext = React.createContext()
+
+export default function App() {
+  const [user] = React.useState({ name: "Fred" });
+  
+  return (
+    <UserContext.Provider value={user}>
+      <Main />
+    </UserContext.Provider>
+    );
+    
+  }
+  
+const Main = () => (
+  <>
+    <Header />
+    <br />
+    <div>Main app content</div>
+  </>
+);
+  
+const Header = () => {
+  const user = React.useContext(UserContext)
+  return <h1>Welcome, {user.name}!</h1>;
+}
+```
