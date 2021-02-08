@@ -306,3 +306,34 @@ export default function App() {
   });
 }
 ```
+## useMemo Hook
+useMemo Can Improve Expensive Operations
+```
+import './styles.css'
+import React from 'react';
+
+const skills = ["HTML", "CSS", "JavaScript", '...1000s more']
+
+export default function App() {
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const searchResults = React.useMemo(() => {
+    return skills.filter(s => s.includes(searchTerm));
+  }, [searchTerm])
+  
+  function handleSearchInput(event) {
+    setSearchTerm(event.target.value);
+  }
+  
+  return (
+    <>
+      <h3>Search Results</h3>
+      <input onChange={handleSearchInput} />
+      <ul>
+        {searchResults.map((result, i) => (
+          <li key={i}>{result}</li>
+        ))}
+      </ul>
+    </>
+  );
+}
+```
