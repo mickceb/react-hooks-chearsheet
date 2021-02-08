@@ -112,3 +112,127 @@ export default function App() {
   );
 }
 ```
+## useEffect Hook
+useEffect to Perform Side Effects
+```
+import "./styles.css";
+import React from "react";
+
+export default function App() {
+  React.useEffect(() => {
+    document.body.style.background = 'navy';
+    document.body.style.color = 'white';
+  })
+  
+  return (
+    <div>
+      <h1>React App</h1>
+    </div>
+  );
+}
+```
+Run Again when a Value Changes
+```
+import "./styles.css";
+import React from "react";
+
+  export default function App() {
+    const [color, setColor] = React.useState('navy')
+    React.useEffect(() => {
+      document.body.style.background = color;
+      document.body.style.color = 'white';
+    }, [color]);
+    function changeColor() {
+     setColor('gold')
+  }
+  
+  return (
+    <div>
+      <h1>React App</h1>
+      <button onClick={changeColor}>Change color</button>
+    </div>
+  );
+}
+```
+Unsubscribe by Returning a Function
+```
+import "./styles.css";
+import React from "react";
+
+export default function App() {
+  const [color, setColor] = React.useState('navy')
+  
+  React.useEffect(() => {
+    document.body.style.background = color;
+    document.body.style.color = 'white';
+    window.addEventListener('keydown', handleEnterButton)
+    
+    return () => {
+      window.removeEventListener('keydown', handleEnterButton)
+    }
+  }, [color]);
+  
+  function changeColor() {
+    setColor('gold')
+  }
+  
+  function handleEnterButton(event) {
+    if (event.keyCode === 13) {
+      setColor('red')
+    }
+  }
+  
+  return (
+    <div>
+      <h1>React App</h1>
+      <button onClick={changeColor}>Get color</button>
+    </div>
+  );
+}
+```
+Fetch Data from an API
+```
+import "./styles.css";
+import React from "react";
+
+export default function App() {
+  const [color, setColor] = React.useState('navy')
+  const [user, setUser] = React.useState(null)
+  
+  React.useEffect(() => {
+    fetch('https://randomuser.me/api/')
+    .then(res => res.json())
+    .then(data => setUser(data.results[0]))
+  }, [])
+  
+  React.useEffect(() => {
+    document.body.style.background = color;
+    document.body.style.color = 'white';
+    window.addEventListener('keydown', handleEnterButton)
+    return () => {
+    window.removeEventListener('keydown', handleEnterButton)
+    }
+  }, [color]);
+  
+  function changeColor() {
+    setColor('gold')
+  }
+  
+  function handleEnterButton(event) {
+    if (event.keyCode === 13) {
+    setColor('red')
+    }
+  }
+  
+  return (
+    <div>
+      <h1>React App</h1>
+      <button onClick={changeColor}>Get color</button>
+      <br />
+      <br />
+      Current user: <pre>{JSON.stringify(user, null, 2)}</pre>
+    </div>
+  );
+}
+```
+
