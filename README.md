@@ -235,4 +235,30 @@ export default function App() {
   );
 }
 ```
+## useRef Hook
+useRef to Reference React Elements
+```
+import './styles.css'
+import React from 'react';
 
+export default function App() {
+  const inputRef = React.useRef(null)
+  
+  function handleClearInput() {
+    inputRef.current.value = "";
+    inputRef.current.focus();
+  }
+  
+  return (
+    <form>
+      <input
+        type="text"
+        ref={inputRef}
+      />
+      <button type="button" onClick={handleClearInput}>
+        Clear Input
+      </button>
+    </form>
+  );
+}
+```
