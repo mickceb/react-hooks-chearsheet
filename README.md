@@ -369,3 +369,36 @@ const Header = () => {
   return <h1>Welcome, {user.name}!</h1>;
 }
 ```
+## useReducer Hook
+useReducer is Another) Powerful State Management Tool
+```
+export default function App() {
+  const [state, dispatch] = React.useReducer(reducer, initialState)
+  
+  function handleLogin() {
+    dispatch({
+      type: "LOGIN",
+      payload: {
+      username: "Reed"
+      }
+    })
+  }
+  
+  function handleSignout() {
+    dispatch({
+      type: "SIGNOUT"
+    })
+  }
+  
+  return (
+    <>
+      Current user: {state.username}
+      <br />
+      isAuthenticated: {JSON.stringify(state.isAuth)}
+      <br />
+      <button onClick={handleLogin}>Login</button>
+      <button onClick={handleSignout}>Signout</button>
+    </>
+  );
+}
+```
